@@ -1,0 +1,13 @@
+.navbar {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.navbar-link {
+    color: rgb(171, 170, 170);
+    text-decoration: none;
+}
+
+.navbar-link:hover {
+    color: lightgray;
+}
