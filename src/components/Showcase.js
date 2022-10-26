@@ -5,52 +5,74 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import API_URL from '../constants/api-url';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { CartCheckFill } from 'react-bootstrap-icons';
 
 const Showcase = () => {
-    const client = axios.create({
-        baseURL: `${API_URL}api/products/`,
-    });
-
     const [items, setItems] = useState([]);
+    const [itemsFilter, setItemsFilter] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState();
-
-    const handleCategoryChange = (event) => {
-        setSelectedCategory(Number(event.target.attributes[0].value));
-    };
-
-    const getFilteredList = () => {
-        if (!selectedCategory) {
-            return items;
-        }
-        return items.filter((item) => item.categoryId === selectedCategory);
-    };
-
-    const filteredList = useMemo(getFilteredList, [selectedCategory, items]);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        client.get().then((response) => {
+        axios.get(`${API_URL}api/products/`).then((response) => {
             setItems(response.data);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const client2 = axios.create({
-        baseURL: `${API_URL}api/categories/`,
-    });
+    useEffect(() => {
+        if (selectedCategory) {
+            axios
+                .get(`${API_URL}api/products/category/${selectedCategory}`)
+                .then((response) => {
+                    setItemsFilter(response.data);
+                });
+        }
+        }
+            , [selectedCategory]);
 
-    const [categories, setCategories] = useState([]);
+    const handleCategoryChange = (event) => {
+        setSelectedCategory(event.target.attributes[0].value);
+    };
 
     useEffect(() => {
-        client2.get().then((response) => {
+        axios.get(`${API_URL}api/categories/`).then((response) => {
             setCategories(response.data);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const getFilteredList = () => {
+        if (!selectedCategory) {
+            return items;
+        }
+        return itemsFilter;
+    };
+
+    const itemsByCategory = useMemo(getFilteredList, [
+        selectedCategory,
+        itemsFilter,
+        items,
+    ]);
+
     return (
         <Row>
-            <div className='col-12 mt-5'>
-                <Dropdown className="">
+            <div className="col-12 mt-3 d-flex justify-content-end gap-3">
+                <Dropdown>
+                    <Dropdown.Toggle
+                        variant="outline-success"
+                        id="dropdown-basic"
+                    >
+                        Фильтр
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item>Цена возростает</Dropdown.Item>
+                        <Dropdown.Item>Цена убывает</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+
+                <Dropdown className="me-4">
                     <Dropdown.Toggle
                         variant="outline-success"
                         id="dropdown-basic"
@@ -59,11 +81,7 @@ const Showcase = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item
-                            key={0}
-                            value={0}
-                            onClick={handleCategoryChange}
-                        >
+                        <Dropdown.Item key={1} onClick={handleCategoryChange}>
                             Все
                         </Dropdown.Item>
                         {categories.map((category) => {
@@ -80,9 +98,10 @@ const Showcase = () => {
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
-            <div className="col-12 mt-5">
+
+            <div className="col-12 mt-3">
                 <div className="d-flex justify-content-start align-items-center gap-3 ">
-                    {filteredList.map((item) => {
+                    {itemsByCategory.map((item) => {
                         return (
                             <Card key={item.id} className="text-center">
                                 <Card.Img
@@ -93,7 +112,9 @@ const Showcase = () => {
                                 />
                                 <Card.Body>
                                     <Card.Title>{item.name}</Card.Title>
-                                    <Card.Text>{item.description}</Card.Text>
+                                    <Card.Text className="cut-text">
+                                        {item.description}
+                                    </Card.Text>
                                     <Card.Text>
                                         <strong>{item.price}.00</strong> ₽
                                     </Card.Text>
@@ -102,7 +123,7 @@ const Showcase = () => {
                                         className="btn-sm"
                                         variant="success"
                                     >
-                                        В корзину
+                                        <CartCheckFill className="cart" /> Купить
                                     </Button>
                                 </Card.Body>
                             </Card>

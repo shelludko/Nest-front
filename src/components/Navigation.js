@@ -27,7 +27,7 @@ const Navigation = () => {
                     </Nav>
                     <Nav className="ms-auto">
                         <Nav.Link href="#home" className="me-3">
-                            <Cart4 style={{ color: 'white' }} />
+                            <Cart4 className='cart' />
                         </Nav.Link>
                     </Nav>
                 </Container>
