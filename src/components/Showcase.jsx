@@ -4,36 +4,42 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
-import API_URL from '../constants/api-url';
+import { useDispatch, useSelector } from 'react-redux';
+import API_URL from '../constants/urls';
+import { fetchItems } from '../store/reducers/itemsReducer';
+import { fetchCategories } from '../store/reducers/categoriesReducer';
 import getRequest from '../utils/get-request';
 import PriceSort from '../utils/price-sort';
 
 const Showcase = () => {
-    const [items, setItems] = useState([]);
-    const [categories, setCategories] = useState([]);
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.itemsReducer.items);
+    const categories = useSelector(
+        (state) => state.categoriesReducer.categories
+    );
+
+    console.log(items);
+
     const [categoryID, setCategoryID] = useState(0);
     const [sortType, setSortType] = useState(0);
 
     useEffect(() => {
-        PriceSort(sortType, items, setItems);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        PriceSort(sortType, items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortType]);
 
     useEffect(() => {
-        getRequest(`${API_URL}api/categories/`, setCategories);
-    }, []);
+        dispatch(fetchCategories());
+    }, [dispatch]);
 
     useEffect(() => {
         if (categoryID === 0) {
-            getRequest(`${API_URL}api/products/`, setItems);
+            dispatch(fetchItems());
             return;
         } else {
-            getRequest(
-                `${API_URL}api/products/category/${categoryID}`,
-                setItems
-            );
+            getRequest(`${API_URL}api/products/category/${categoryID}`);
         }
-    }, [categoryID]);
+    }, [categoryID, dispatch]);
 
     const handleCategoryChange = (event) => {
         setCategoryID(event.target.attributes[0].value);

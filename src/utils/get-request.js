@@ -1,10 +1,7 @@
-import axios from 'axios';
+// import axios from 'axios';
 
-const getRequest = (url, func) => {
-    axios.get(url).then((response) => {
-        func(response.data);
-    });
-    return;
+const getRequest = (url) => {
+    fetch(url);
 };
 
 export default getRequest;
