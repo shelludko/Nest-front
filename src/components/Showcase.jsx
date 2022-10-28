@@ -1,74 +1,75 @@
-import axios from 'axios';
-import React, { useEffect, useState, useMemo } from 'react';
-import Row from 'react-bootstrap/Row';
+import { useEffect, useMemo, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import API_URL from '../constants/api-url';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { CartCheckFill } from 'react-bootstrap-icons';
+import Row from 'react-bootstrap/Row';
+import API_URL from '../constants/api-url';
+import getRequest from '../utils/get-request';
+import PriceSort from '../utils/price-sort';
 
 const Showcase = () => {
     const [items, setItems] = useState([]);
-    const [itemsFilter, setItemsFilter] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState();
     const [categories, setCategories] = useState([]);
+    const [categoryID, setCategoryID] = useState(0);
+    const [sortType, setSortType] = useState(0);
 
     useEffect(() => {
-        axios.get(`${API_URL}api/products/`).then((response) => {
-            setItems(response.data);
-        });
+        PriceSort(sortType, items, setItems);
         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortType]);
+
+    useEffect(() => {
+        getRequest(`${API_URL}api/categories/`, setCategories);
     }, []);
 
     useEffect(() => {
-        if (selectedCategory) {
-            axios
-                .get(`${API_URL}api/products/category/${selectedCategory}`)
-                .then((response) => {
-                    setItemsFilter(response.data);
-                });
+        if (categoryID === 0) {
+            getRequest(`${API_URL}api/products/`, setItems);
+            return;
+        } else {
+            getRequest(
+                `${API_URL}api/products/category/${categoryID}`,
+                setItems
+            );
         }
-        }
-            , [selectedCategory]);
+    }, [categoryID]);
 
     const handleCategoryChange = (event) => {
-        setSelectedCategory(event.target.attributes[0].value);
+        setCategoryID(event.target.attributes[0].value);
     };
 
-    useEffect(() => {
-        axios.get(`${API_URL}api/categories/`).then((response) => {
-            setCategories(response.data);
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const getFilteredList = () => {
-        if (!selectedCategory) {
-            return items;
-        }
-        return itemsFilter;
+    const handleNull = () => {
+        setCategoryID(0);
+        setSortType(3);
     };
 
-    const itemsByCategory = useMemo(getFilteredList, [
-        selectedCategory,
-        itemsFilter,
-        items,
-    ]);
+    const handleSortType = (event) => {
+        setSortType(Number(event.target.attributes[0].value));
+    };
+
+    const itemFiltred = useMemo(() => {
+        return items;
+    }, [items]);
 
     return (
         <Row>
-            <div className="col-12 mt-3 d-flex justify-content-end gap-3">
+            <Container className="col-12 mt-3 d-flex justify-content-end gap-3">
                 <Dropdown>
                     <Dropdown.Toggle
                         variant="outline-success"
                         id="dropdown-basic"
                     >
-                        Фильтр
+                        Цена
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item>Цена возростает</Dropdown.Item>
-                        <Dropdown.Item>Цена убывает</Dropdown.Item>
+                        <Dropdown.Item value={1} onClick={handleSortType}>
+                            Дешевле
+                        </Dropdown.Item>
+                        <Dropdown.Item value={2} onClick={handleSortType}>
+                            Дороже
+                        </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
 
@@ -81,9 +82,7 @@ const Showcase = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item key={1} onClick={handleCategoryChange}>
-                            Все
-                        </Dropdown.Item>
+                        <Dropdown.Item onClick={handleNull}>Все</Dropdown.Item>
                         {categories.map((category) => {
                             return (
                                 <Dropdown.Item
@@ -97,11 +96,11 @@ const Showcase = () => {
                         })}
                     </Dropdown.Menu>
                 </Dropdown>
-            </div>
+            </Container>
 
-            <div className="col-12 mt-3">
-                <div className="d-flex justify-content-start align-items-center gap-3 ">
-                    {itemsByCategory.map((item) => {
+            <Container className="col-12 mt-3">
+                <Container className="d-flex justify-content-start align-items-center gap-3 ">
+                    {itemFiltred.map((item) => {
                         return (
                             <Card key={item.id} className="text-center">
                                 <Card.Img
@@ -123,14 +122,14 @@ const Showcase = () => {
                                         className="btn-sm"
                                         variant="success"
                                     >
-                                        <CartCheckFill className="cart" /> Купить
+                                        В корзину
                                     </Button>
                                 </Card.Body>
                             </Card>
                         );
                     })}
-                </div>
-            </div>
+                </Container>
+            </Container>
         </Row>
     );
 };
