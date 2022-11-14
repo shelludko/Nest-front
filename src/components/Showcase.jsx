@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from 'react-redux';
 import API_URL from '../constants/urls';
-import { fetchItems } from '../store/reducers/itemsReducer';
 import { fetchCategories } from '../store/reducers/categoriesReducer';
+import { fetchItems } from '../store/reducers/itemsReducer';
 import getRequest from '../utils/get-request';
 import PriceSort from '../utils/price-sort';
+import ProductCard from './ProductCard';
 
 const Showcase = () => {
     const dispatch = useDispatch();
@@ -18,15 +17,14 @@ const Showcase = () => {
         (state) => state.categoriesReducer.categories
     );
 
-    console.log(items);
-
+    const [products, setProducts] = useState([]);
     const [categoryID, setCategoryID] = useState(0);
     const [sortType, setSortType] = useState(0);
 
     useEffect(() => {
         PriceSort(sortType, items);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sortType]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortType, items]);
 
     useEffect(() => {
         dispatch(fetchCategories());
@@ -37,12 +35,16 @@ const Showcase = () => {
             dispatch(fetchItems());
             return;
         } else {
-            getRequest(`${API_URL}api/products/category/${categoryID}`);
+            getRequest(
+                `${API_URL}api/products/category/${categoryID}`,
+                setProducts
+            );
         }
     }, [categoryID, dispatch]);
 
     const handleCategoryChange = (event) => {
         setCategoryID(event.target.attributes[0].value);
+        console.log(event.target.attributes[0].value);
     };
 
     const handleNull = () => {
@@ -53,10 +55,6 @@ const Showcase = () => {
     const handleSortType = (event) => {
         setSortType(Number(event.target.attributes[0].value));
     };
-
-    const itemFiltred = useMemo(() => {
-        return items;
-    }, [items]);
 
     return (
         <Row>
@@ -106,34 +104,13 @@ const Showcase = () => {
 
             <Container className="col-12 mt-3">
                 <Container className="d-flex justify-content-start align-items-center gap-3 ">
-                    {itemFiltred.map((item) => {
-                        return (
-                            <Card key={item.id} className="text-center">
-                                <Card.Img
-                                    style={{ height: '15rem' }}
-                                    variant="top"
-                                    src={`${API_URL}${item.image}`}
-                                    alt="Product photo"
-                                />
-                                <Card.Body>
-                                    <Card.Title>{item.name}</Card.Title>
-                                    <Card.Text className="cut-text">
-                                        {item.description}
-                                    </Card.Text>
-                                    <Card.Text>
-                                        <strong>{item.price}.00</strong> ₽
-                                    </Card.Text>
-
-                                    <Button
-                                        className="btn-sm"
-                                        variant="success"
-                                    >
-                                        В корзину
-                                    </Button>
-                                </Card.Body>
-                            </Card>
-                        );
-                    })}
+                    {categoryID !== 0
+                        ? products.map((item) => {
+                              return <ProductCard key={item.id} item={item} />;
+                          })
+                        : items.map((item) => {
+                              return <ProductCard key={item.id} item={item} />;
+                          })}
                 </Container>
             </Container>
         </Row>

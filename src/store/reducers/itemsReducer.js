@@ -4,7 +4,7 @@ const initialState = {
 export const SET_ITEMS = 'SET_ITEMS';
 export const FETCH_ITEMS = 'FETCH_ITEMS';
 
-export default function itemsReducer(state = initialState, action) {
+const itemsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_ITEMS:
             return { ...state, items: action.payload };
@@ -15,3 +15,5 @@ export default function itemsReducer(state = initialState, action) {
 
 export const setItems = (payload) => ({ type: SET_ITEMS, payload });
 export const fetchItems = () => ({ type: FETCH_ITEMS });
+
+export default itemsReducer;
