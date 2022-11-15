@@ -44,7 +44,6 @@ const Showcase = () => {
 
     const handleCategoryChange = (event) => {
         setCategoryID(event.target.attributes[0].value);
-        console.log(event.target.attributes[0].value);
     };
 
     const handleNull = () => {
