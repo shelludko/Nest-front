@@ -27,10 +27,14 @@ const Showcase = () => {
     const handleSortType = (event) =>
         dispatch(setActiveSort(Number(VALUE(event))));
 
-    const handleNull = () => {
-        dispatch(setCategoryId(0));
+    const handleNullSort = () => {
         dispatch(setActiveSort(0));
     };
+
+      const handleNullCategory = () => {
+          dispatch(setCategoryId(0));
+          dispatch(setActiveSort(0));
+      };
 
     useEffect(() => {
         dispatch(fetchCategories());
@@ -52,7 +56,7 @@ const Showcase = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleNull}>
+                        <Dropdown.Item onClick={handleNullSort}>
                             Без сортировки
                         </Dropdown.Item>
                         <Dropdown.Item value={1} onClick={handleSortType}>
@@ -79,7 +83,9 @@ const Showcase = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleNull}>Все</Dropdown.Item>
+                        <Dropdown.Item onClick={handleNullCategory}>
+                            Все
+                        </Dropdown.Item>
 
                         {categories?.map((category) => {
                             return (
