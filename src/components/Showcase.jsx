@@ -31,9 +31,9 @@ const Showcase = () => {
         dispatch(setActiveSort(0));
     };
 
-      const handleNullCategory = () => {
-          dispatch(setCategoryId(0));
-      };
+    const handleNullCategory = () => {
+        dispatch(setCategoryId(0));
+    };
 
     useEffect(() => {
         dispatch(fetchCategories());
@@ -78,7 +78,7 @@ const Showcase = () => {
                         variant="outline-success"
                         id="dropdown-basic"
                     >
-                        Выбрать категорию
+                        Категории
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
