@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    activeSortPrice: 0,
+    activeSort: 0,
     products: [],
 };
 
@@ -10,12 +10,12 @@ const slice = createSlice({
     initialState,
     reducers: {
         setProducts: (state, { payload }) => ({ ...state, products: payload }),
-        setactiveSortPrice: (state, { payload }) => ({
+        setActiveSort: (state, { payload }) => ({
             ...state,
-            activeSortPrice: payload,
+            activeSort: payload,
         }),
     },
 });
 
-export const { getProducts, setProducts, setactiveSortPrice } = slice.actions;
+export const { setProducts, setActiveSort } = slice.actions;
 export default slice.reducer;
