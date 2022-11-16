@@ -33,7 +33,6 @@ const Showcase = () => {
 
       const handleNullCategory = () => {
           dispatch(setCategoryId(0));
-          dispatch(setActiveSort(0));
       };
 
     useEffect(() => {
@@ -60,16 +59,16 @@ const Showcase = () => {
                             Без сортировки
                         </Dropdown.Item>
                         <Dropdown.Item value={1} onClick={handleSortType}>
-                            Цена вверх
+                            Цена ⇡
                         </Dropdown.Item>
                         <Dropdown.Item value={2} onClick={handleSortType}>
-                            Цена вниз
+                            Цена ⇣
                         </Dropdown.Item>
                         <Dropdown.Item value={3} onClick={handleSortType}>
-                            A-Z
+                            А-Я ⇢
                         </Dropdown.Item>
                         <Dropdown.Item value={4} onClick={handleSortType}>
-                            Z-A
+                            А-Я ⇠
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
