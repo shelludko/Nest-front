@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-const getRequest = (url, func) => {
-    axios.get(url).then((response) => {
-        func(response.data);
-    });
-    return;
+export const getRequest = async (url) => {
+   const response = await axios.get(url);
+    return response.data;
 };
-
-export default getRequest;

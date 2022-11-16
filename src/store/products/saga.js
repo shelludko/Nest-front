@@ -1,13 +1,10 @@
-import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { API_URL } from '../../constants';
+import { getRequest } from '../../utils/get-request';
 import { FETCH_PRODUCTS } from './actionList';
 import { setProducts } from './reducer';
 
-const fetchData = (path) =>
-    axios
-        .get(`${API_URL}api/products${path}`)
-        .then((response) => response.data);
+const fetchData = (path) => getRequest(`${API_URL}api/products${path}`);
 
 function* getProductsWorker({ payload }) {
     const path = payload === 0 ? '' : `/category/${payload}`;

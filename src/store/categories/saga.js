@@ -1,11 +1,10 @@
-import axios from 'axios';
+import { getRequest } from '../../utils/get-request';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { API_URL } from '../../constants';
 import { FETCH_CATEGORIES } from './actionList';
 import { setCategories } from './reducer';
 
-const fetchData = () =>
-    axios.get(`${API_URL}api/categories/`).then((response) => response.data);
+const fetchData = () => getRequest(`${API_URL}api/categories/`);
 
 function* getCategoriesWorker() {
     const data = yield call(fetchData);
