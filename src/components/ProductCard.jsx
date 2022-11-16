@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { API_URL } from '../constants/urls';
+import { API_URL } from '../constants';
 
 export const ProductCard = ({ item }) => {
     const { id, image, name, description, price } = item;

@@ -3,11 +3,11 @@ import { Container } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { VALUE } from '../constants';
 import { fetchCategories } from '../store/categories/actions';
 import { setCategoryId } from '../store/categories/reducer';
 import { fetchProducts } from '../store/products/actions';
-import { setActiveSort } from '../store/products/reducer';
+import { setactiveSortPrice } from '../store/products/reducer';
 import { PriceSort } from '../utils/price-sort';
 import { ProductCard } from './ProductCard';
 
@@ -16,20 +16,22 @@ const Showcase = () => {
 
     const products = useSelector((state) => state.products.products);
     const categories = useSelector((state) => state.categories.categories);
-    const activeSort = useSelector((state) => state.products.activeSort);
+    const activeSortPrice = useSelector(
+        (state) => state.products.activeSortPrice
+    );
     const categoryId = useSelector(
         (state) => state.categories.activeCategoryId
     );
 
     const handleCategoryChange = (event) =>
-        dispatch(setCategoryId(event.target.attributes[0].value));
+        dispatch(setCategoryId(VALUE(event)));
 
     const handleSortType = (event) =>
-        dispatch(setActiveSort(Number(event.target.attributes[0].value)));
+        dispatch(setactiveSortPrice(Number(VALUE(event))));
 
     const handleNull = () => {
         dispatch(setCategoryId(0));
-        dispatch(setActiveSort(0));
+        dispatch(setactiveSortPrice(0));
     };
 
     useEffect(() => {
@@ -48,15 +50,21 @@ const Showcase = () => {
                         variant="outline-success"
                         id="dropdown-basic"
                     >
-                        Цена
+                        Сортировка
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                         <Dropdown.Item value={1} onClick={handleSortType}>
-                            Дешевле
+                            Цена вверх
                         </Dropdown.Item>
                         <Dropdown.Item value={2} onClick={handleSortType}>
-                            Дороже
+                            Цена вниз
+                        </Dropdown.Item>
+                        <Dropdown.Item value={2} onClick={handleSortType}>
+                            Цена вниз
+                        </Dropdown.Item>
+                        <Dropdown.Item value={2} onClick={handleSortType}>
+                            Цена вниз
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -88,7 +96,7 @@ const Showcase = () => {
 
             <Container className="col-12 mt-3">
                 <Container className="d-flex justify-content-start align-items-center gap-3 ">
-                    {PriceSort(activeSort, products)?.map((item) => (
+                    {PriceSort(activeSortPrice, products)?.map((item) => (
                         <ProductCard key={item.id} item={item} />
                     ))}
                 </Container>

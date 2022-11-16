@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { API_URL } from '../../constants/urls';
+import { API_URL } from '../../constants';
 import { FETCH_PRODUCTS } from './actionList';
 import { setProducts } from './reducer';
 
