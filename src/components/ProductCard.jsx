@@ -1,9 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import API_URL from '../constants/urls';
+import { API_URL } from '../constants/urls';
 
-const ProductCard = ({item}) => {
+export const ProductCard = ({ item }) => {
     const { id, image, name, description, price } = item;
+
     return (
         <Card key={id} className="text-center">
             <Card.Img
@@ -26,5 +27,3 @@ const ProductCard = ({item}) => {
         </Card>
     );
 };
-
-export default ProductCard;

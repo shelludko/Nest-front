@@ -1,59 +1,44 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from 'react-redux';
-import API_URL from '../constants/urls';
-import { fetchCategories } from '../store/reducers/categoriesReducer';
-import { fetchItems } from '../store/reducers/itemsReducer';
-import getRequest from '../utils/get-request';
-import PriceSort from '../utils/price-sort';
-import ProductCard from './ProductCard';
+
+import { fetchCategories } from '../store/categories/actions';
+import { setCategoryId } from '../store/categories/reducer';
+import { fetchProducts } from '../store/products/actions';
+import { setActiveSort } from '../store/products/reducer';
+import { PriceSort } from '../utils/price-sort';
+import { ProductCard } from './ProductCard';
 
 const Showcase = () => {
     const dispatch = useDispatch();
-    const items = useSelector((state) => state.itemsReducer.items);
-    const categories = useSelector(
-        (state) => state.categoriesReducer.categories
+
+    const products = useSelector((state) => state.products.products);
+    const categories = useSelector((state) => state.categories.categories);
+    const activeSort = useSelector((state) => state.products.activeSort);
+    const categoryId = useSelector(
+        (state) => state.categories.activeCategoryId
     );
 
-    const [products, setProducts] = useState([]);
-    const [categoryID, setCategoryID] = useState(0);
-    const [sortType, setSortType] = useState(0);
+    const handleCategoryChange = (event) =>
+        dispatch(setCategoryId(event.target.attributes[0].value));
 
-    useEffect(() => {
-        PriceSort(sortType, items);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sortType, items]);
+    const handleSortType = (event) =>
+        dispatch(setActiveSort(Number(event.target.attributes[0].value)));
+
+    const handleNull = () => {
+        dispatch(setCategoryId(0));
+        dispatch(setActiveSort(0));
+    };
 
     useEffect(() => {
         dispatch(fetchCategories());
     }, [dispatch]);
 
     useEffect(() => {
-        if (categoryID === 0) {
-            dispatch(fetchItems());
-            return;
-        } else {
-            getRequest(
-                `${API_URL}api/products/category/${categoryID}`,
-                setProducts
-            );
-        }
-    }, [categoryID, dispatch]);
-
-    const handleCategoryChange = (event) => {
-        setCategoryID(event.target.attributes[0].value);
-    };
-
-    const handleNull = () => {
-        setCategoryID(0);
-        setSortType(3);
-    };
-
-    const handleSortType = (event) => {
-        setSortType(Number(event.target.attributes[0].value));
-    };
+        dispatch(fetchProducts(categoryId));
+    }, [categoryId, dispatch]);
 
     return (
         <Row>
@@ -86,7 +71,7 @@ const Showcase = () => {
 
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={handleNull}>Все</Dropdown.Item>
-                        {categories.map((category) => {
+                        {categories?.map((category) => {
                             return (
                                 <Dropdown.Item
                                     key={category.id}
@@ -103,13 +88,9 @@ const Showcase = () => {
 
             <Container className="col-12 mt-3">
                 <Container className="d-flex justify-content-start align-items-center gap-3 ">
-                    {categoryID !== 0
-                        ? products.map((item) => {
-                              return <ProductCard key={item.id} item={item} />;
-                          })
-                        : items.map((item) => {
-                              return <ProductCard key={item.id} item={item} />;
-                          })}
+                    {PriceSort(activeSort, products)?.map((item) => (
+                        <ProductCard key={item.id} item={item} />
+                    ))}
                 </Container>
             </Container>
         </Row>
