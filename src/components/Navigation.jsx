@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,14 +7,19 @@ import Register from './auth/Register';
 import Login from './auth/Login';
 import Showcase from './Showcase';
 import { Cart4 } from 'react-bootstrap-icons';
+import { Cart } from './Cart';
+import { CountRound } from './CountRound';
 
 const Navigation = () => {
+    const [modalShow, setModalShow] = useState(false);
+    
+
     return (
         <Router>
-            <Navbar bg="dark" variant="dark" className="navbar">
+            <Navbar bg="success" variant="dark" className="navbar">
                 <Container>
                     <Link className="navbar-brand ms-3" to="/">
-                        OZON
+                        ELECTR ☢ NIX
                     </Link>
 
                     <Nav className="me-auto">
@@ -26,9 +32,18 @@ const Navigation = () => {
                         </Link>
                     </Nav>
                     <Nav className="ms-auto">
-                        <Nav.Link href="#home" className="me-3">
+                        <Nav.Link
+                            style={{display: 'flex'}}
+                            onClick={() => setModalShow(true)}
+                            className="me-3"
+                        >
                             <Cart4 className="cart" />
+                            {/* <CountRound /> */}
                         </Nav.Link>
+                        <Cart
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                        />
                     </Nav>
                 </Container>
             </Navbar>

@@ -4,7 +4,7 @@
 }
 
 .navbar-link {
-    color: rgb(171, 170, 170);
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 
@@ -13,8 +13,8 @@
 }
 
 .cut-text {
-    margin: 0; 
-    -webkit-line-clamp: 1; 
+    margin: 0;
+    -webkit-line-clamp: 1;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -23,4 +23,67 @@
 
 .cart {
     color: white;
+}
+
+.count-button {
+    border: 0;
+    background-color: #25a266;
+    color: white;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.count-button:active {
+    position: relative;
+    left: 1px;
+    top: 1px;
+}
+
+.count {
+    display: flex;
+}
+
+.count_input {
+    border: 0;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+}
+
+.count-round {
+    border: 1px solid white;
+    background-color: rgb(216, 20, 20);
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9pt;
+    border-radius: 50%;
+    color: white;
+}
+
+.count_input::-webkit-outer-spin-button,
+.count_input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.count_input[type=number] {
+  appearance: textfield;
+}
+
+.delete-button {
+    border: 0;
+    background-color: transparent;
+}
+
+.delete-button:active {
+    position: relative;
+    left: 1px;
+    top: 1px;
 }
