@@ -45,36 +45,27 @@
 
 .count {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 .count_input {
-    border: 0;
-    width: 30px;
-    height: 20px;
-    text-align: center;
+   font-weight: bold;
 }
 
 .count-round {
-    border: 1px solid white;
-    background-color: rgb(216, 20, 20);
+    margin-left: 2px;
+    background-color: rgb(241, 169, 35);
     width: 18px;
     height: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 9pt;
+    font-weight: bold;
     border-radius: 50%;
-    color: white;
-}
-
-.count_input::-webkit-outer-spin-button,
-.count_input::-webkit-inner-spin-button {
-  appearance: none;
-  margin: 0;
-}
-
-.count_input[type=number] {
-  appearance: textfield;
+    color: rgb(19, 68, 14);
 }
 
 .delete-button {

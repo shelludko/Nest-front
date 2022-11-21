@@ -1,17 +1,14 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useDispatch } from 'react-redux';
 import { API_URL } from '../constants';
-import { divOfNums } from '../utils/division-of-numbers';
-import { useDispatch, useSelector } from 'react-redux';
-// import { addToCart } from '../store/cart/actions';
 import { addToCart } from '../store/cart/reducer';
+import { divOfNums } from '../utils/division-of-numbers';
 
 export const ProductCard = ({ item }) => {
     const { id, image, name, description, price } = item;
 
     const dispatch = useDispatch();
-    const activeId = useSelector((state) => state.cart.activeId);
-    const products = useSelector((state) => state.products.products);
 
     const handleAddItem = (item) => {
         dispatch(addToCart(item));
@@ -21,7 +18,7 @@ export const ProductCard = ({ item }) => {
         <Card key={id} className="text-center">
             <Card.Body>
                 <Card.Img
-                    style={{ height: '10rem' }}
+                    style={{ height: '12rem' }}
                     variant="top"
                     src={`${API_URL}${image}`}
                     alt="Product photo"

@@ -9,6 +9,8 @@ import Showcase from './Showcase';
 import { Cart4 } from 'react-bootstrap-icons';
 import { Cart } from './Cart';
 import { CountRound } from './CountRound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const Navigation = () => {
     const [modalShow, setModalShow] = useState(false);
@@ -16,10 +18,11 @@ const Navigation = () => {
 
     return (
         <Router>
+            <ToastContainer  />
             <Navbar bg="success" variant="dark" className="navbar">
                 <Container>
                     <Link className="navbar-brand ms-3" to="/">
-                        ELECTR ☢ NIX
+                        ELECTR☢NIX
                     </Link>
 
                     <Nav className="me-auto">
@@ -38,7 +41,7 @@ const Navigation = () => {
                             className="me-3"
                         >
                             <Cart4 className="cart" />
-                            {/* <CountRound /> */}
+                            <CountRound />
                         </Nav.Link>
                         <Cart
                             show={modalShow}
