@@ -4,7 +4,7 @@
 }
 
 .navbar-link {
-    color: rgb(171, 170, 170);
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 
@@ -13,8 +13,8 @@
 }
 
 .cut-text {
-    margin: 0; 
-    -webkit-line-clamp: 1; 
+    margin: 0;
+    -webkit-line-clamp: 1;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -23,4 +23,58 @@
 
 .cart {
     color: white;
+}
+
+.count-button {
+    border: 0;
+    background-color: #25a266;
+    color: white;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.count-button:active {
+    position: relative;
+    left: 1px;
+    top: 1px;
+}
+
+.count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.count_input {
+   font-weight: bold;
+}
+
+.count-round {
+    margin-left: 2px;
+    background-color: rgb(241, 169, 35);
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9pt;
+    font-weight: bold;
+    border-radius: 50%;
+    color: rgb(19, 68, 14);
+}
+
+.delete-button {
+    border: 0;
+    background-color: transparent;
+}
+
+.delete-button:active {
+    position: relative;
+    left: 1px;
+    top: 1px;
 }
