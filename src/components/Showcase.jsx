@@ -11,7 +11,7 @@ import { setActiveSort } from '../store/products/reducer';
 import { Sort } from '../utils/sort';
 import { ProductCard } from './ProductCard';
 
-const Showcase = () => {
+export const Showcase = () => {
     const dispatch = useDispatch();
 
     const products = useSelector((state) => state.products.products);
@@ -111,5 +111,3 @@ const Showcase = () => {
         </Row>
     );
 };
-
-export default Showcase;

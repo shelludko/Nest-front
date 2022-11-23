@@ -1,3 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #edeef024;
+}
+
 .navbar {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -27,11 +36,7 @@
 
 .count-button {
     border: 0;
-    background-color: #25a266;
-    color: white;
-    border-radius: 5px;
-    width: 20px;
-    height: 20px;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,17 +60,19 @@
 }
 
 .count-round {
-    margin-left: 2px;
-    background-color: rgb(241, 169, 35);
-    width: 18px;
-    height: 18px;
+    position: relative;
+    right: 25px;
+    top: 15px;
+    background-color: #f78400;
+    width: 22px;
+    height: 17px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 9pt;
     font-weight: bold;
-    border-radius: 50%;
-    color: rgb(19, 68, 14);
+    color: rgb(255, 255, 255);
+    border-radius: 2px;
 }
 
 .delete-button {
@@ -74,6 +81,12 @@
 }
 
 .delete-button:active {
+    position: relative;
+    left: 1px;
+    top: 1px;
+}
+
+.cart-button:active {
     position: relative;
     left: 1px;
     top: 1px;

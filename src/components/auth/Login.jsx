@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const Login = () => {
+export const Login = () => {
   return (
       <Container className='col-8 d-flex flex-column justify-content-center align-items-center gap-3 mt-5'>
           <h2>Вход</h2>
@@ -23,5 +23,3 @@ const Login = () => {
       </Container>
   );
 };
-
-export default Login;

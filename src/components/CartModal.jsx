@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
+import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_URL } from '../constants';
 import { Trash } from 'react-bootstrap-icons';
@@ -19,7 +19,7 @@ import {
 } from '../store/cart/reducer';
 import { divOfNums } from '../utils/division-of-numbers';
 
-export const Cart = () => {
+export const CartModal = (props) => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
 
@@ -44,36 +44,27 @@ export const Cart = () => {
     };
 
     return (
-        <Container
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                textAlign: 'center',
-                gap: '50px',
-                marginTop: '50px',
-            }}
+        <Modal
+            {...props}
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            backdrop="static"
+            keyboard={false}
         >
-            <Row>
-                <Col>
-                    <header>
-                        <h2>Корзина</h2>
-                    </header>
-                </Col>
-            </Row>
-            <Row
+            <Modal.Header
                 style={{
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    backgroundColor: '#25A266',
+                    color: 'white',
                 }}
             >
-                <Col
-                    md={10}
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Корзина
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="show-grid">
+                <Container>
                     {cart.cartItems.length ? (
                         cart.cartItems?.map((cartItem) => {
                             return (
@@ -85,7 +76,7 @@ export const Cart = () => {
                                         marginBottom: '10px',
                                     }}
                                 >
-                                    <Col sm={3} md={2}>
+                                    <Col md={2}>
                                         <Image
                                             style={{ height: '2rem' }}
                                             variant="top"
@@ -94,11 +85,11 @@ export const Cart = () => {
                                         />
                                     </Col>
 
-                                    <Col sm={3} md={4}>
+                                    <Col sm={4} md={4}>
                                         <p>{cartItem.name}</p>
                                     </Col>
 
-                                    <Col sm={3} md={2}>
+                                    <Col sm={2} md={2}>
                                         <div className="count">
                                             <button
                                                 onClick={() =>
@@ -141,7 +132,7 @@ export const Cart = () => {
                                         </strong>{' '}
                                     </Col>
 
-                                    <Col sm={3} md={1}>
+                                    <Col sm={1} md={1}>
                                         <button
                                             value={cartItem.id}
                                             onClick={() =>
@@ -168,11 +159,18 @@ export const Cart = () => {
                                 alignItems: 'center',
                             }}
                         >
+                            <Col md={6}>
+                                <Button
+                                    variant="outline-dark"
+                                    onClick={handleCartClear}
+                                >
+                                    Очистить
+                                </Button>
+                            </Col>
                             <Col
-                                md={12}
+                                md={6}
                                 style={{
-                                    display: 'flex',
-                                    justifyContent: 'end',
+                                    textAlign: 'end',
                                 }}
                             >
                                 <div
@@ -181,9 +179,7 @@ export const Cart = () => {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         gap: '40px',
-                                        marginRight: '90px',
-                                        marginTop: '20px',
-                                        marginBottom: '20px',
+                                        marginRight: '32px'
                                     }}
                                 >
                                     <span>Итого:</span>
@@ -196,32 +192,20 @@ export const Cart = () => {
                     ) : (
                         false
                     )}
-                </Col>
-            </Row>
-            <Row>
-                <Col
-                    sm={12}
-                    md={12}
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        gap: '20px',
-                    }}
-                >
-                    <Link to="/">
-                        <Button variant="outline-success">
-                            Продолжить покупки
-                        </Button>
-                    </Link>
-                    <Button variant="outline-dark" onClick={handleCartClear}>
-                        Очистить корзину
-                    </Button>
-                    <Link to="">
-                        <Button variant="success">Перейти к оформлению</Button>
-                    </Link>
-                </Col>
-            </Row>
-        </Container>
+                </Container>
+            </Modal.Body>
+            <Modal.Footer
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    backgroundColor: '#25A266',
+                }}
+            >
+                <Button variant="success" onClick={props.onHide}>
+                    Продолжить покупки
+                </Button>
+                <Button variant="outline-light">Перейти к оформлению</Button>
+            </Modal.Footer>
+        </Modal>
     );
 };
