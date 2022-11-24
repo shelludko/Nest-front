@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { API_URL } from '../../constants';
-import { getRequest } from '../../utils/get-request';
+import { getRequest } from '../../utils/request';
 import { FETCH_PRODUCTS } from './actionList';
 import { setProducts } from './reducer';
 

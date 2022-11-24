@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/get-request';
+import { getRequest } from '../../utils/request';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { API_URL } from '../../constants';
 import { FETCH_CATEGORIES } from './actionList';

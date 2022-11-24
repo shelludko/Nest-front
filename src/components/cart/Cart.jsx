@@ -6,7 +6,7 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { API_URL } from '../constants';
+import { API_URL } from '../../constants';
 import { Trash } from 'react-bootstrap-icons';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { DashSquare } from 'react-bootstrap-icons';
@@ -16,8 +16,8 @@ import {
     increaseCartItem,
     clearCart,
     getTotals,
-} from '../store/cart/reducer';
-import { divOfNums } from '../utils/division-of-numbers';
+} from '../../store/cart/reducer';
+import { divOfNums } from '../../utils/division-of-numbers';
 
 export const Cart = () => {
     const dispatch = useDispatch();
@@ -68,7 +68,8 @@ export const Cart = () => {
                 }}
             >
                 <Col
-                    md={10}
+                    xs={12}
+                    sm={12}
                     style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -81,24 +82,33 @@ export const Cart = () => {
                                     key={cartItem.id}
                                     style={{
                                         paddingTop: '10px',
+                                        borderTop: '1px dotted lightgray',
                                         borderBottom: '1px dotted lightgray',
                                         marginBottom: '10px',
+                                        padding: '20px',
                                     }}
                                 >
-                                    <Col sm={3} md={2}>
+                                    <Col xs={12} sm={12}>
                                         <Image
-                                            style={{ height: '2rem' }}
+                                            style={{
+                                                height: '4rem',
+                                                marginBottom: '10px',
+                                            }}
                                             variant="top"
                                             src={`${API_URL}${cartItem.image}`}
                                             alt="Product photo"
                                         />
                                     </Col>
 
-                                    <Col sm={3} md={4}>
+                                    <Col xs={12} sm={12}>
                                         <p>{cartItem.name}</p>
                                     </Col>
 
-                                    <Col sm={3} md={2}>
+                                    <Col
+                                        xs={12}
+                                        sm={12}
+                                        style={{ marginBottom: '10px' }}
+                                    >
                                         <div className="count">
                                             <button
                                                 onClick={() =>
@@ -127,11 +137,9 @@ export const Cart = () => {
                                     </Col>
 
                                     <Col
-                                        style={{
-                                            textAlign: 'end',
-                                        }}
-                                        sm={3}
-                                        md={3}
+                                        xs={12}
+                                        sm={12}
+                                        style={{ marginBottom: '15px' }}
                                     >
                                         <strong>
                                             {divOfNums(
@@ -141,7 +149,7 @@ export const Cart = () => {
                                         </strong>{' '}
                                     </Col>
 
-                                    <Col sm={3} md={1}>
+                                    <Col xs={12} sm={12}>
                                         <button
                                             value={cartItem.id}
                                             onClick={() =>
@@ -172,7 +180,7 @@ export const Cart = () => {
                                 md={12}
                                 style={{
                                     display: 'flex',
-                                    justifyContent: 'end',
+                                    justifyContent: 'center',
                                 }}
                             >
                                 <div
@@ -180,10 +188,10 @@ export const Cart = () => {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        gap: '40px',
-                                        marginRight: '90px',
+                                        gap: '20px',
+                                        // marginRight: '90px',
                                         marginTop: '20px',
-                                        marginBottom: '20px',
+                                        // marginBottom: '20px',
                                     }}
                                 >
                                     <span>Итого:</span>
@@ -200,13 +208,15 @@ export const Cart = () => {
             </Row>
             <Row>
                 <Col
+                    xs={12}
                     sm={12}
-                    md={12}
                     style={{
                         display: 'flex',
                         justifyContent: 'center',
+                        flexDirection: 'column-reverse',
                         alignItems: 'center',
                         gap: '20px',
+                        marginBottom: '20px'
                     }}
                 >
                     <Link to="/">

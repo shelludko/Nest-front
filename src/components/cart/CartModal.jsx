@@ -6,7 +6,7 @@ import Image from 'react-bootstrap/Image';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from 'react-redux';
-import { API_URL } from '../constants';
+import { API_URL } from '../../constants';
 import { Trash } from 'react-bootstrap-icons';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { DashSquare } from 'react-bootstrap-icons';
@@ -16,8 +16,8 @@ import {
     increaseCartItem,
     clearCart,
     getTotals,
-} from '../store/cart/reducer';
-import { divOfNums } from '../utils/division-of-numbers';
+} from '../../store/cart/reducer';
+import { divOfNums } from '../../utils/division-of-numbers';
 
 export const CartModal = (props) => {
     const dispatch = useDispatch();
@@ -163,8 +163,9 @@ export const CartModal = (props) => {
                                 <Button
                                     variant="outline-dark"
                                     onClick={handleCartClear}
+                                    style={{ marginTop: '5px' }}
                                 >
-                                    Очистить
+                                    Очистить корзину
                                 </Button>
                             </Col>
                             <Col
@@ -178,8 +179,8 @@ export const CartModal = (props) => {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        gap: '40px',
-                                        marginRight: '32px'
+                                        gap: '36px',
+                                        marginRight: '35px',
                                     }}
                                 >
                                     <span>Итого:</span>

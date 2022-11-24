@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { decreaseCartItem } from '../store/cart/reducer';
+import { decreaseCartItem } from '../../store/cart/reducer';
 
 export const Count = ({ cartItem }) => {
     const { itemQuantity } = cartItem;

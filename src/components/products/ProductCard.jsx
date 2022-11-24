@@ -1,9 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useDispatch } from 'react-redux';
-import { API_URL } from '../constants';
-import { addToCart } from '../store/cart/reducer';
-import { divOfNums } from '../utils/division-of-numbers';
+import { API_URL } from '../../constants';
+import { addToCart } from '../../store/cart/reducer';
+import { divOfNums } from '../../utils/division-of-numbers';
 
 export const ProductCard = ({ item }) => {
     const { id, image, name, description, price } = item;

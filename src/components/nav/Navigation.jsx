@@ -5,17 +5,17 @@ import Nav from 'react-bootstrap/Nav';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Login } from './auth/Login';
-import { Register } from './auth/Register';
-import { Cart } from './Cart';
-import { CartModal } from './CartModal';
+import { Login } from '../auth/Login';
+import { Register } from '../auth/Register';
+import { Cart } from '../cart/Cart';
+import { CartModal } from '../cart/CartModal';
 import { CountRound } from './CountRound';
-import { Showcase } from './Showcase';
+import { Showcase } from '../products/Showcase';
 
 export const Navigation = () => {
     const [modalShow, setModalShow] = useState(false);
     const screenWidth = document.documentElement.clientWidth;
-    
+
     return (
         <Router>
             <ToastContainer />
@@ -52,7 +52,6 @@ export const Navigation = () => {
                             </Link>
                         </Nav>
                         <Nav className="navbar-nav ms-auto mb-2 mb-lg-0">
-
                             {screenWidth > 775 ? (
                                 <Link
                                     style={{
