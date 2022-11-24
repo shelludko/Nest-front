@@ -24,6 +24,7 @@
   "scripts": {
     "front": "react-scripts start",
     "back": "sh server.sh",
+    "vps": "sh reg-vps.sh",
     "build": "react-scripts build",
     "test": "jest"
   },
