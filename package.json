@@ -22,10 +22,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "front": "react-scripts start",
+    "back": "sh server.sh",
     "build": "react-scripts build",
-    "test": "jest",
-    "back": "sh server.sh"
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
